@@ -1,0 +1,57 @@
+version: '3.7'
+
+services:
+  mysql:
+    build: ./mysql
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'p@ssword'
+      MYSQL_DATABASE: 'test_db'
+      MYSQL_USER: 'data_user'
+      MYSQL_PASSWORD: 'data'
+
+  phpmyadmin:
+    depends_on:
+      - mysql
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql
+    restart: always
+    ports:
+      - "8080:80"
+
+  php-apache:
+    build: ./php
+    volumes:
+      - ./htdocs:/var/www/html
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - mysql
+
+  openssh-server:
+    image: linuxserver/openssh-server:version-9.6_p1-r0
+    container_name: openssh-server
+    hostname: openssh-server #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Tokyo
+      - PASSWORD_ACCESS=true
+      - USER_PASSWORD=p@ssword
+      - USER_NAME=null
+      - LOG_STDOUT=#optional
+    ports:
+      - 2222:2222
+    restart: unless-stopped
+
+  openssh-sshpass:
+    image: arukiidou/sshpass:1.10-alpine3.19
+    container_name: openssh-sshpass
+    tty: true 
+
+volumes:
+    db_data: {}
