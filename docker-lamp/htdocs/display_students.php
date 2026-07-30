@@ -29,6 +29,13 @@
                             echo "<td>" . htmlspecialchars($v) . "</td>";
                         }
                     }
+                    // 削除ボタンを追加
+                    echo "<td>";
+                    echo "<form method = \"post\" action = \"delete_student.php\" style = \"display:inline;\">";
+                    echo "<input type = \"hidden\" name = \"student_id\" value = \"".htmlspecialchars($row['student_id'])."\">";
+                    echo "<button type = \"submit\" onclick = \"return confirm('ID:".htmlspecialchars($row['student_id'])."delete?');\">DELETE</button>";
+                    echo "</form>";
+                    echo "</td>";
                     echo "</tr>";
                 }
                 echo "</tbody>";

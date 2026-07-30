@@ -55,7 +55,7 @@ values (4, 'Kimura', 2);
 insert into classes (class_id, class_name)
 values (1, 'ProgrammerClass');
 insert into classes (class_id, class_name)
-values (2, 'DesignerCalss');
+values (2, 'DesignerClass');
 
 insert into students (student_id, student_name, class_id)
 values (5, 'Takagi', 3);
