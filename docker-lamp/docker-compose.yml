@@ -26,11 +26,20 @@ services:
     build: ./php
     volumes:
       - ./htdocs:/var/www/html
+      - ./.ssh/test_rsa:/root/.ssh/test_rsa
     restart: always
     ports:
       - "80:80"
     depends_on:
       - mysql
+
+  storage:
+    build: ./storage
+    volumes:
+     - ./storage:/storage
+     - ./.ssh/test_rsa.pub:/root/.ssh/authorized_keys
+    ports:
+     - '10022:22'
 
   openssh-server:
     image: linuxserver/openssh-server:version-9.6_p1-r0

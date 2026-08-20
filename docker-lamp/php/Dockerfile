@@ -10,3 +10,5 @@ RUN apt-get update && apt-get install -y default-mysql-client
 
 COPY ./php_apache2.conf /etc/apache2/mods-enabled
 RUN apache2ctl restart
+
+RUN apt-get update && apt-get install -y openssh-server
