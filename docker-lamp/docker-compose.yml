@@ -62,5 +62,18 @@ services:
     container_name: openssh-sshpass
     tty: true 
 
+  memcached:
+    build: ./memcached
+    container_name: memcached_cache
+    user: root
+    command: ["memcached", "-u", "root"]
+    ports:
+      - "11211:11211"
+
+  redis:
+    build: ./redis
+    ports:
+      - "6379:6379"
+
 volumes:
     db_data: {}
